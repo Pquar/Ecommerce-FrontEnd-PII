@@ -1,19 +1,108 @@
 {
-    "products": [
+  "products": [
+    {
+      "id": "1",
+      "name": "Produto 1",
+      "description": "Produto description",
+      "price": "100",
+      "stocks": "10"
+    },
+    {
+      "id": "2",
+      "name": "Produto 2",
+      "description": "Pr2oduto description",
+      "price": "200",
+      "stocks": "20"
+    }
+  ],
+  "orders": [
+    {
+      "id": 1,
+      "products": [
         {
-            "id": "1",
-            "name": "Produto 1",
-            "description": "Produto description",
-            "price": "100",
-            "stocks": "10"
-
-        },{
-            "id": "2",
-            "name": "Produto 2",
-            "description": "Pr2oduto description",
-            "price": "200",
-            "stocks": "20"
-
+          "id": "1",
+          "name": "Produto 1",
+          "description": "Produto description",
+          "price": "100",
+          "stocks": "10"
+        },
+        {
+          "id": "1",
+          "name": "Produto 1",
+          "description": "Produto description",
+          "price": "100",
+          "stocks": "10"
+        },
+        {
+          "id": "1",
+          "name": "Produto 1",
+          "description": "Produto description",
+          "price": "100",
+          "stocks": "10"
+        },
+        {
+          "id": "2",
+          "name": "Produto 2",
+          "description": "Pr2oduto description",
+          "price": "200",
+          "stocks": "20"
+        },
+        {
+          "id": "2",
+          "name": "Produto 2",
+          "description": "Pr2oduto description",
+          "price": "200",
+          "stocks": "20"
+        },
+        {
+          "id": "2",
+          "name": "Produto 2",
+          "description": "Pr2oduto description",
+          "price": "200",
+          "stocks": "20"
         }
-    ]
+      ],
+      "pix_card_number": "111"
+    },
+    {
+      "products": [
+        {
+          "id": "1",
+          "name": "Produto 1",
+          "description": "Produto description",
+          "price": "100",
+          "stocks": "10"
+        },
+        {
+          "id": "1",
+          "name": "Produto 1",
+          "description": "Produto description",
+          "price": "100",
+          "stocks": "10"
+        }
+      ],
+      "pix_card_number": "111",
+      "id": 2
+    },
+    {
+      "products": [
+        {
+          "id": "1",
+          "name": "Produto 1",
+          "description": "Produto description",
+          "price": "100",
+          "stocks": "10"
+        },
+        {
+          "id": "1",
+          "name": "Produto 1",
+          "description": "Produto description",
+          "price": "100",
+          "stocks": "10"
+        }
+      ],
+      "pix_card_number": "111",
+      "id": 3
+    }
+  ]
 }
