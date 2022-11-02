@@ -9,15 +9,20 @@ export const CheckoutSuccessPage: NextPage<CheckoutSuccessPageProps> = ({
   order,
 }) => {
   return (
-    <div>
-      <h3>Sua compra foi realizada</h3>
-      <ul>
+    <div className='main'>
+      <div className='container card text-center'>
+
+      
+      <h3 className='mt-4'>Sua solicitação foi realizada</h3>
+      <div className='mt-2 p-4'>
+        <h4 className='card-title'>Lista de produtos</h4>
         {order.products.map((product) => (
-          <li key={product.id}>
+          <div key={product.id}>
             Produto {product.name} - {product.price}
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
+      </div>
     </div>
   );
 };

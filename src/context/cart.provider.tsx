@@ -1,70 +1,83 @@
-import { Product } from '../utils/models';
+import { Product } from '../@core/domain/entities/product';
 import {
   createContext,
-  useMemo,
   useCallback,
   useState,
   PropsWithChildren,
   useEffect,
 } from 'react';
+import { Cart } from '../@core/domain/entities/cart';
+import { container, Registry } from '../@core/infra/container-registry';
+import { AddProductInCartUseCase } from '../@core/application/cart/add-product-in-cart.use-case';
+import { RemoveProductFromCartUseCase } from '../@core/application/cart/remove-product-from-cart.use-case';
+import { ClearCartUseCase } from '../@core/application/cart/clear-cart-use-case';
+import { GetCartUseCase } from '../@core/application/cart/get-cart.use-case';
 
 export type CartContextType = {
-  products: Product[];
+  cart: Cart;
   addProduct: (product: Product) => void;
-  removeProduct: (product: Product) => void;
+  removeProduct: (productId: number) => void;
   clear: () => void;
-  total: number;
+  reload: () => void;
 };
 
 const defaultContext: CartContextType = {
-  products: [],
-  addProduct: () => {},
-  removeProduct: () => {},
+  cart: new Cart({ products: [] }),
+  addProduct: (product: Product) => {},
+  removeProduct: (productId: number) => {},
   clear: () => {},
-  total: 0,
+  reload: () => {},
 };
 
 export const CartContext = createContext(defaultContext);
 
+const getUseCase = container.get<GetCartUseCase>(Registry.GetCartUseCase);
+
+const addProductUseCase = container.get<AddProductInCartUseCase>(
+  Registry.AddProductInCartUseCase
+);
+
+const removeProductUseCase = container.get<RemoveProductFromCartUseCase>(
+  Registry.RemoveProductFromUseCase
+);
+const clearCartUseCase = container.get<ClearCartUseCase>(
+  Registry.ClearCartUseCase
+);
+
 export const CartProvider = ({ children }: PropsWithChildren) => {
-  const [products, setProducts] = useState<Product[] | null>(null);
-
-  useEffect(() => {
-    setProducts(JSON.parse(localStorage.getItem('products') || '[]'));
-  }, []);
-
-  useEffect(() => {
-    if (!products) {
-      return;
-    }
-    localStorage.setItem('products', JSON.stringify(products));
-  }, [products]);
+  const [cart, setCart] = useState<Cart>(defaultContext.cart);
 
   const addProduct = useCallback((product: Product) => {
-    setProducts((products) => [...products!, product]);
+    const cart = addProductUseCase.execute(product);
+    setCart(cart);
   }, []);
 
-  const removeProduct = useCallback((product: Product) => {
-    setProducts((products) => products!.filter((p) => p.id !== product.id));
+  const removeProduct = useCallback((productId: number) => {
+    const cart = removeProductUseCase.execute(productId);
+    setCart(cart);
   }, []);
   const clear = useCallback(() => {
-    setProducts([]);
+    const cart = clearCartUseCase.execute();
+    setCart(cart);
   }, []);
 
-  const total = useMemo(() => {
-    if (!products) {
-      return 0;
-    }
-    return products.reduce((total, product) => total + product.price, 0);
-  }, [products]);
+  const reload = useCallback(() => {
+    const cart = getUseCase.execute();
+    setCart(cart);
+  }, []);
+
+  useEffect(() => {
+    reload();
+  }, [reload]);
+
   return (
     <CartContext.Provider
       value={{
-        products: products || [],
+        cart,
         addProduct,
         removeProduct,
         clear,
-        total,
+        reload,
       }}
     >
       {children}

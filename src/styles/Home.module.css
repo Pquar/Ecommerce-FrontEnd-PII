@@ -127,3 +127,17 @@
     filter: invert(1);
   }
 }
+
+
+/*checkout*/
+.shopping-cart {
+  font-weight: 100;
+}
+.product-details{
+  border-radius: 1.0rem black;
+  background-color: aqua;
+}
+
+.product-title{
+  background-color: aqua;
+}
