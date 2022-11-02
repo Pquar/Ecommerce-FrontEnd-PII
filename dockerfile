@@ -1,18 +1,15 @@
-FROM node:18.11.0
+FROM node:18-alpine
 
 WORKDIR /app
 
-COPY package.json yarn.lock ./
-RUN yarn install
+COPY package.json package-lock.json ./
+RUN npm install
 
 COPY next.config.js ./next.config.js
 
-COPY @core ./@core
-COPY components ./components
-COPY context ./context
-COPY pages ./pages
-COPY styles ./styles
+COPY src ./src
 COPY public ./public
-COPY ultils ./ultils
 
-CMD ["npm","dev", "fake-api"]
+
+
+CMD ["npm","run","dev" ]
