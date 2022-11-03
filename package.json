@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build & npm run fake-api",
     "start": "next start",
     "lint": "next lint",
-    "fake-api": "json-server --port 8000 --watch posivel-api.json"
+    "fake-api": "json-server --port 8000 --watch posivel-api.json",
+    "dev-api": "npm run dev & npm run fake-api"
   },
   "dependencies": {
     "axios": "^1.1.3",
